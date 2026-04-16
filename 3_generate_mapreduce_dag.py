@@ -1,5 +1,8 @@
 import dask.dataframe as dd # Dask 데이터프레임 라이브러리 (cite: 2_dask_mapreduce.py)
-import dask_cudf # GPU 가속 Dask-cuDF 라이브러리 (cite: 2_dask_mapreduce.py)
+try:
+    import dask_cudf # GPU 가속 Dask-cuDF 라이브러리 (cite: 2_dask_mapreduce.py)
+except ImportError:
+    dask_cudf = None # dask_cudf가 없는 환경에서도 나머지 로직이 실행되도록 무시합니다.
 import pandas as pd # 임시 데이터 생성을 위한 Pandas
 import glob # 파일 패턴 검색 (cite: 2_dask_mapreduce.py)
 import os # 폴더 생성 등 시스템 작업 (cite: 1_benchmark_io.py, 2_dask_mapreduce.py)
@@ -29,7 +32,7 @@ def generate_mapreduce_dag_image(file_pattern, output_path="images/mapreduce_dag
     # ddf = dask_cudf.read_csv(file_pattern, header=0, npartitions=4) # 주석 처리된 코드 기반
 
     # 임시 데이터를 활용해 DAG 구조 만들기 (예: 100행 데이터를 4개 파티션으로 분할)
-    # 실제 데이터 유무와 관계없이 동일한 형태의 DAG를 그릴 수 있습니다.
+    # 실제 데이터 유무와 관계없이 동일한 형태 양식의 DAG를 그릴 수 있습니다.
     pdf = pd.DataFrame({"Date Time": ["2026-04-16"]*100, 
                         "Water Level": range(100), 
                         "Sigma": [0.1]*100})
@@ -52,8 +55,34 @@ def generate_mapreduce_dag_image(file_pattern, output_path="images/mapreduce_dag
         final_aggregate.visualize(filename=output_path, format="png")
         print("✅ 성공적으로 이미지가 저장되었습니다!")
     except Exception as e:
-        print("❌ 이미지 저장 실패. Graphviz가 시스템에 제대로 설치되었는지 확인하세요.")
-        print(f"에러 메시지: {e}")
+        print("❌ 로컬 Graphviz를 통한 렌더링에 실패했습니다. 온라인 API 렌더링으로 대체 시도합니다...")
+        try:
+            import urllib.request
+            import json
+            import dask.dot
+            cg = dask.dot.to_graphviz(final_aggregate.dask)
+            
+            # 보다 입체적이고 고급스러운 디자인 템플릿(다크 모드 + 그라데이션) 주입
+            premium_style = (
+                '\n    graph [bgcolor="#0f172a", pad="0.2", ranksep="0.5", nodesep="0.5"];\n'
+                '    node [style="filled", fillcolor="#1e293b:#334155", gradientangle="270", color="#0ea5e9", penwidth="2.5", fontcolor="#fef08a", fontname="Segoe UI Bold, Helvetica Bold", fontsize="20", margin="0.2,0.1"];\n'
+                '    edge [color="#94a3b8", penwidth="2.0", arrowsize="1.0"];\n'
+            )
+            
+            # 기존 DOT 코드를 가로채어 최상단 설정부에 커스텀 스타일 삽입
+            dot_source = cg.source.replace('{', '{' + premium_style, 1)
+
+            # dask 데이터의 기존 구조 지정 속성과 병합되어 렌더링 됨
+            api_url = 'https://quickchart.io/graphviz?format=png'
+            data = json.dumps({'graph': dot_source, 'format': 'png'}).encode('utf-8')
+            req = urllib.request.Request(api_url, data=data, headers={'Content-Type': 'application/json'})
+            with urllib.request.urlopen(req) as response:
+                with open(output_path, 'wb') as f:
+                    f.write(response.read())
+            print("✅ 온라인 API를 통해 성공적으로 이미지가 저장되었습니다!")
+        except Exception as api_e:
+            print("❌ 온라인 API 렌더링마저 실패했습니다.")
+            print(f"에러 메시지: {api_e}")
 
 if __name__ == "__main__":
     # 데이터 경로 패턴 (2_dask_mapreduce.py의 기본값 data/*.csv 사용)
