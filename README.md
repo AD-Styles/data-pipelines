@@ -31,7 +31,7 @@
 ## 🛠 핵심 기술 개념 (Core Technical Concepts)
 
 ### 1. 처리 엔진 및 라이브러리 비교 (Engine Comparison)
-| 구분 &emsp;&emsp;&emsp;&emsp;&emsp; | Pandas | RAPIDS cuDF | Dask / dask_cudf |
+| 구분 &emsp;&emsp;&emsp; | Pandas | RAPIDS cuDF | Dask / dask_cudf |
 | :--- | :--- | :--- | :--- |
 | **연산 가속** | CPU (Single-core / Multi-thread) | GPU (NVIDIA CUDA Cores) | Multi-node / Multi-GPU Distributed |
 | **메모리 관리** | System RAM | GPU VRAM (Apache Arrow) | Distributed Memory Management |
