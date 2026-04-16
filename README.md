@@ -53,6 +53,10 @@
 | **Reduce Operation** | 분산된 결과를 하나로 취합하는 동기화 단계 (Aggregate) | `sum()`, `mean()`, `max()` 등의 집계 연산 |
 | **Partitions** | 대규모 데이터를 작은 단위로 쪼개어 개별 GPU/Worker에 할당 | 메모리 효율 극대화 및 병렬 로딩 최적화 |
 
+**📌 MapReduce DAG 시각화 (4 Partitions)**
+Dask의 지연 평가(Lazy Evaluation)를 통해 구성된 병렬 처리 파이프라인의 작업 흐름도입니다.
+![MapReduce DAG Visualization](images/mapreduce_dag.png)
+
 ### 4. 확장 개념 (Advanced Terminology)
 | 개념 | 설명 | 관련 도구 |
 | :--- | :--- | :--- |
