@@ -28,7 +28,7 @@ def run_benchmark(file_path):
         elif file_path.endswith('.parquet'):
             df_cpu = pd.read_parquet(file_path) # 
         elif file_path.endswith('.txt') or file_path.endswith('.json'):
-            df_cpu = pd.read_json(file_path, orient="records") # 
+            df_cpu = pd.read_json(file_path, orient="records", lines=True) 
     
     # 2. cuDF (GPU) 데이터 로딩
     with Timer() as t_cudf: # 
