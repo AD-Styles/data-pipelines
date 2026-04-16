@@ -15,8 +15,8 @@
 ## 📂 프로젝트 구조 (Project Structure)
 ```text
 📂 data-pipelines
-├── 1_Data_Formats.ipynb          # I/O 효율성 분석: JSON, CSV, Parquet 성능 비교 
-├── 2_Dask_and_MapReduce.ipynb    # 분산 병렬 처리: Dask & MapReduce 파이프라인 구축 
+├── 1_benchmark_io.py             # I/O 효율성 분석: JSON, CSV, Parquet 성능 비교 스크립트
+├── 2_dask_mapreduce.py           # 분산 병렬 처리: Dask & MapReduce 파이프라인 스크립트
 ├── data/                         # 벤치마킹 및 실습용 데이터셋
 │   ├── sample_json.txt           # NOAA Tides & Currents API 원본 데이터 
 │   ├── sample_data.csv           # 시계열 수위 데이터 (Row-based) 
@@ -24,6 +24,10 @@
 │   └── numbers.csv/parquet       # 7500x7500 고차원 벤치마킹 데이터셋 
 └── images/                       # 시스템 아키텍처 및 DAG 시각화 이미지
 ```
+
+---
+
+## 🛠 핵심 기술 개념 (Core Technical Concepts)
 
 ### 1. 처리 엔진 및 라이브러리 비교 (Engine Comparison)
 | 구분 | Pandas | RAPIDS cuDF | Dask / dask_cudf |
