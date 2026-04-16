@@ -1,4 +1,5 @@
 # 🚀 Accelerating Data Engineering Pipelines with RAPIDS & Dask
+### RAPIDS cuDF와 Dask를 활용하여 대규모 데이터 엔지니어링 파이프라인을 가속화
 
 ![Python](https://img.shields.io/badge/Python-3.7+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![NVIDIA](https://img.shields.io/badge/NVIDIA-CUDA-76B900?style=flat-square&logo=nvidia&logoColor=white)
