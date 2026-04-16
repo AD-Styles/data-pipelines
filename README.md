@@ -55,7 +55,7 @@
 
 ---
 
-## 📌 시각화로 이해하는 병렬 처리와 깨달음 (Insights through Visualization)**
+## 📊 시각화로 이해하는 병렬 처리와 깨달음 (Insights through Visualization)
 
 ### 1. MapReduce DAG 분석
 Dask의 지연 평가(Lazy Evaluation) 기능을 통해 생성된 작업 흐름도(DAG)입니다. 4개의 파티션이 동시에 연산되는 과정을 한눈에 볼 수 있습니다.
