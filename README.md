@@ -1,4 +1,4 @@
-## 🚀 Accelerating Data Engineering Pipelines with RAPIDS & Dask
+# 🚀 Accelerating Data Engineering Pipelines with RAPIDS & Dask
 
 ![Python](https://img.shields.io/badge/Python-3.7+-3776AB?style=flat-square&logo=python&logoColor=white)
 ![NVIDIA](https://img.shields.io/badge/NVIDIA-CUDA-76B900?style=flat-square&logo=nvidia&logoColor=white)
