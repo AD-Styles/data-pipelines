@@ -1,3 +1,6 @@
+# "이 스크립트를 로컬에서 완벽하게 실행하려면 OS 수준에서 sudo apt-get install graphviz가 필요할 수 있습니다."
+
+
 import dask.dataframe as dd # Dask 데이터프레임 라이브러리 (cite: 2_dask_mapreduce.py)
 try:
     import dask_cudf # GPU 가속 Dask-cuDF 라이브러리 (cite: 2_dask_mapreduce.py)
